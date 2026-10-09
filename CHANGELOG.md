@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/dcc-mcp/dcc-mcp-reaper/compare/v0.1.1...v0.1.2) (2026-10-09)
+
+
+### Bug Fixes
+
+* **ci:** anchor release identity check on the tag, not github.sha ([5c0145e](https://github.com/dcc-mcp/dcc-mcp-reaper/commit/5c0145e10072470ed07a5ed9321f3e799dcbf60e))
+
 ## [0.1.1](https://github.com/dcc-mcp/dcc-mcp-reaper/compare/v0.1.0...v0.1.1) (2026-10-09)
 
 
