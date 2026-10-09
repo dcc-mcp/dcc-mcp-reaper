@@ -14,6 +14,7 @@ from .compat import TARGET_VERSION, is_supported, parse_app_version
 from .transport import (
     ENV_VAR,
     IN_PROCESS,
+    TransportConfigError,
     external_client,
     in_process_module,
     resolve_transport,
@@ -35,12 +36,24 @@ def _host_version_external():
 
 
 def detect_host_version(transport=None):
-    """Return the running REAPER version, or ``None`` when unreachable."""
+    """Return the running REAPER version, or ``None`` when unreachable.
+
+    A :class:`TransportConfigError` means the selected transport is
+    misconfigured -- a missing optional dependency, or a client that cannot
+    satisfy the contract. That is not the same thing as REAPER being
+    unreachable, so it propagates instead of being reported as ``None``.
+
+    A plain :class:`TransportError` covers the ordinary "host not there" case
+    (REAPER is not running, so ``reaper_python`` was never injected) and still
+    resolves to ``None``.
+    """
     chosen = resolve_transport(transport)
     try:
         if chosen == IN_PROCESS:
             return _host_version_in_process()
         return _host_version_external()
+    except TransportConfigError:
+        raise
     except Exception:
         return None
 
@@ -59,9 +72,20 @@ def bitness_matches_host(transport=None):
 
 
 def environment_report(transport=None, environ=None):
-    """A JSON-serialisable readiness report for ``doctor`` and the CLI."""
+    """A JSON-serialisable readiness report for ``doctor`` and the CLI.
+
+    A transport that cannot be honoured is reported as ``transport_error``
+    rather than raised: the doctor's job is to explain a broken install, so it
+    must stay runnable on one. An unreachable host is not an error, so it keeps
+    the ordinary ``host_available: false`` path.
+    """
     chosen = resolve_transport(transport, environ=environ)
-    version = detect_host_version(chosen)
+    try:
+        version = detect_host_version(chosen)
+        transport_error = None
+    except TransportConfigError as exc:
+        version = None
+        transport_error = str(exc)
     report = {
         "adapter": "dcc-mcp-reaper",
         "transport": chosen,
@@ -69,13 +93,16 @@ def environment_report(transport=None, environ=None):
         "target_reaper_version": TARGET_VERSION,
         "host_version": version,
         "host_available": version is not None,
+        "transport_error": transport_error,
         "host_version_supported": is_supported(version) if version else None,
         "python_version": platform.python_version(),
         "python_bitness_ok": bitness_matches_host(chosen),
         "headless_host": False,
         "notes": [],
     }
-    if not report["host_available"]:
+    if transport_error:
+        report["notes"].append("Transport misconfigured: %s" % transport_error)
+    elif not report["host_available"]:
         report["notes"].append("REAPER is not reachable; the adapter starts as a standalone service.")
     if not report["python_bitness_ok"]:
         report["notes"].append(

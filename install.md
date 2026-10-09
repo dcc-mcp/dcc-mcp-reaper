@@ -63,8 +63,12 @@ Use this when you cannot add a Python to REAPER.
 
 ```bash
 pip install "dcc-mcp-reaper[external]"
-python -c "import reapy; reapy.configure_reaper()"
+python -c "import reapy_boost; reapy_boost.configure_reaper()"
 ```
+
+The `external` extra installs `reapy-boost`, whose importable top-level package
+is **`reapy_boost`**. (`reapy` is a separate, unmaintained distribution on PyPI
+that this adapter does not use.)
 
 `configure_reaper()` writes a small bootstrap script into REAPER's resource
 directory. **Restart REAPER** afterwards — the change does not take effect until

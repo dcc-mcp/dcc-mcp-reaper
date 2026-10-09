@@ -55,7 +55,7 @@ dcc-mcp-reaper serve --pid <reaper-pid>
 ### `external`
 
 The adapter runs in its own process and drives REAPER over REAPER's Web Browser
-Interface through `reapy`.
+Interface through `reapy_boost` (installed by the `external` extra).
 
 - No Python installation needed inside REAPER.
 - Needs the Web Browser Interface enabled, plus a one-time `configure_reaper`

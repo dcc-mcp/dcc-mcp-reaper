@@ -61,9 +61,11 @@ Two transports, selected by `DCC_MCP_REAPER_TRANSPORT`:
 - `in_process` (default) — runs inside REAPER as a ReaScript, calls `RPR_*`
   directly. **Requires `--pid`.** Full API surface; needs a matching-bitness
   Python; no UI/graphics and no `get_action_context`.
-- `external` — standalone process driving REAPER through `reapy` over the Web
-  Browser Interface. **Must not receive `--pid`.** No Python inside REAPER;
-  narrower API surface and a network hop per call.
+- `external` — standalone process driving REAPER through `reapy_boost` over the
+  Web Browser Interface. **Must not receive `--pid`.** No Python inside REAPER;
+  narrower API surface and a network hop per call. The `external` extra installs
+  `reapy-boost`, whose importable top-level package is `reapy_boost` — not
+  `reapy`, which is a different (unmaintained) distribution.
 
 The server constructor enforces the pairing, so a mismatch fails loudly rather
 than half-binding the instance.

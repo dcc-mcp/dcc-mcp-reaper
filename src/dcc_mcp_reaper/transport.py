@@ -11,11 +11,12 @@ use decides what the adapter can do:
     no UI, no graphics, and no ``get_action_context`` support.
 
 ``external``
-    The adapter runs in its own process and drives REAPER through ``reapy``
-    (or ``reapy-boost``), which needs REAPER's Web Browser Interface enabled and
-    a one-time ``configure_reaper`` plus restart. Zero Python installation inside
-    REAPER, at the cost of a narrower API surface and a network round trip per
-    call. ``reapy`` requires Python >= 3.7, which matches this package's floor.
+    The adapter runs in its own process and drives REAPER through ``reapy_boost``
+    (the maintained fork shipped by the ``external`` extra), which needs REAPER's
+    Web Browser Interface enabled and a one-time ``configure_reaper`` plus
+    restart. Zero Python installation inside REAPER, at the cost of a narrower
+    API surface and a network round trip per call. ``reapy_boost`` requires
+    Python >= 3.7, which matches this package's floor.
 
 The choice is data-driven from ``DCC_MCP_REAPER_TRANSPORT`` so tests and CI can
 exercise both paths without a live host. See ``docs/adr/0001-transport.md``.
@@ -33,6 +34,15 @@ ENV_VAR = "DCC_MCP_REAPER_TRANSPORT"
 
 class TransportError(RuntimeError):
     """Raised when a transport is requested but cannot be honoured."""
+
+
+class TransportConfigError(TransportError):
+    """The selected transport is installed or configured incorrectly.
+
+    Distinct from the host merely being unreachable: REAPER not running is an
+    expected state that readiness reporting should describe, whereas a missing
+    optional dependency or an unusable client is a fault the user must fix.
+    """
 
 
 def resolve_transport(value=None, environ=None):
@@ -75,15 +85,40 @@ def in_process_module():
 
 
 def external_client():
-    """Return the ``reapy`` client module for out-of-process control.
+    """Return the ``reapy_boost`` client module for out-of-process control.
 
-    Raises :class:`TransportError` when ``reapy`` is not installed. It is an
-    optional dependency: the in-process path must remain installable without it.
+    The ``external`` extra installs ``reapy-boost``, whose top-level package is
+    ``reapy_boost``; the ``python-reapy`` distribution that provides a top-level
+    ``reapy`` is a different package. Importing only ``reapy`` here would make
+    the transport fail even on a correctly-installed ``.[external]``.
+
+    A top-level ``reapy`` is still accepted, but only when it actually exposes
+    :func:`get_reaper_version`: the bare ``reapy`` distribution on PyPI is an
+    empty placeholder, so falling back to it unconditionally would turn a clear
+    install error into an ``AttributeError`` further down the call stack.
+
+    Raises :class:`TransportConfigError` when no usable client is installed. It
+    is an optional dependency: the in-process path must remain installable
+    without it.
     """
+    try:
+        import reapy_boost  # type: ignore[import-not-found]
+
+        return reapy_boost
+    except ImportError:
+        pass
+
     try:
         import reapy  # type: ignore[import-not-found]
     except ImportError as exc:
-        raise TransportError(
-            "external transport requires reapy; install it with 'pip install dcc-mcp-reaper[external]'"
+        raise TransportConfigError(
+            "external transport requires the 'reapy_boost' module; "
+            "install it with 'pip install dcc-mcp-reaper[external]'"
         ) from exc
+
+    if not hasattr(reapy, "get_reaper_version"):
+        raise TransportConfigError(
+            "the installed 'reapy' module does not expose get_reaper_version; "
+            "install the maintained fork with 'pip install dcc-mcp-reaper[external]'"
+        )
     return reapy

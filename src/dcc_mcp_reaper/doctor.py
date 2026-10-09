@@ -67,7 +67,9 @@ def _verify_block(env):
     usable = bool(env["host_available"] and env["host_version_supported"] and env["python_bitness_ok"])
     reason = None
     stage = None
-    if not env["host_available"]:
+    if env.get("transport_error"):
+        stage, reason = "transport", env["transport_error"]
+    elif not env["host_available"]:
         stage, reason = "host", "REAPER is not reachable over the selected transport"
     elif not env["host_version_supported"]:
         stage, reason = "host", "the running REAPER version is on an unsupported line"
@@ -81,7 +83,16 @@ def _next_steps(env):
     if env["host_available"] and env["host_version_supported"] and env["python_bitness_ok"]:
         return []
     steps = []
-    if not env["host_available"]:
+    if env.get("transport_error"):
+        steps.append(
+            {
+                "id": "fix-transport",
+                "description": "Fix the selected transport's configuration",
+                "why": env["transport_error"],
+                "command": ["pip", "install", "dcc-mcp-reaper[external]"],
+            }
+        )
+    if not env["host_available"] and not env.get("transport_error"):
         steps.append(
             {
                 "id": "start-reaper",

@@ -79,8 +79,11 @@ so both paths are testable without a live host.
   `instance_type="gui"` and a bound `dcc_pid` on the in-process transport, and
   `instance_type="standalone"` with no bound PID on the external one. The two
   shapes have different liveness semantics and are validated separately.
-- `reapy` is an optional dependency under the `external` extra, so the
-  in-process install stays lean.
+- `reapy-boost` is an optional dependency under the `external` extra, so the
+  in-process install stays lean. The extra installs the maintained fork, whose
+  importable top-level package is **`reapy_boost`**; the code imports that name,
+  not `reapy`. The bare `reapy` name on PyPI is an empty placeholder, so it is
+  not used as a fallback unless it exposes `get_reaper_version`.
 - REAPER has **no headless mode**, so neither transport can be exercised against
   a real host in CI. Host behaviour is verified on a real machine and recorded
   under `docs/validation/`; the repository marks those items as unverified in CI

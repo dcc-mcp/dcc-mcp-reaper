@@ -6,6 +6,8 @@ what the adapter actually observes, not a hand-written fixture — through Core'
 validator, which is what contract rule A014 asks for.
 """
 
+import sys
+
 import pytest
 
 from dcc_mcp_reaper import doctor
@@ -68,4 +70,33 @@ def test_validate_a_real_report():
     if doctor.validate_install_sop_report is None:
         pytest.skip("dcc-mcp-core does not expose validate_install_sop_report")
     ok, errors = doctor.validate()
+    assert ok, errors
+
+
+def test_misconfigured_transport_is_staged_as_transport_not_host(monkeypatch):
+    """The failure stage must say 'transport' -- 'host' sends users the wrong way."""
+    monkeypatch.setitem(sys.modules, "reapy_boost", None)
+    monkeypatch.setitem(sys.modules, "reapy", None)
+    verify = doctor.build_report(EXTERNAL, environ={})["verify"]
+    assert verify["directly_usable"] is False
+    assert verify["failure_stage"] == "transport"
+    assert "reapy_boost" in verify["failure_reason"]
+
+
+def test_misconfigured_transport_offers_the_install_command(monkeypatch):
+    monkeypatch.setitem(sys.modules, "reapy_boost", None)
+    monkeypatch.setitem(sys.modules, "reapy", None)
+    report = doctor.build_report(EXTERNAL, environ={})
+    step_ids = [step["id"] for step in report["next_steps"]]
+    assert "fix-transport" in step_ids
+    assert "start-reaper" not in step_ids
+
+
+def test_misconfigured_transport_still_validates(monkeypatch):
+    """A broken install must still produce a schema-valid report."""
+    if doctor.validate_install_sop_report is None:
+        pytest.skip("dcc-mcp-core does not expose validate_install_sop_report")
+    monkeypatch.setitem(sys.modules, "reapy_boost", None)
+    monkeypatch.setitem(sys.modules, "reapy", None)
+    ok, errors = doctor.validate(doctor.build_report(EXTERNAL, environ={}))
     assert ok, errors
