@@ -1,0 +1,750 @@
+[
+  {
+    "command": [
+      "call",
+      "reaper_stem_session__open_project",
+      "--dcc-type",
+      "reaper",
+      "--instance-id",
+      "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+      "--json",
+      "{\"project_path\": \"WORKSPACE/audio-output/tidal-signals/Tidal-Signals.rpp\"}"
+    ],
+    "result": {
+      "slug": "reaper_stem_session__open_project",
+      "output": {
+        "success": true,
+        "message": "Native RPP reopened in REAPER",
+        "error": null,
+        "prompt": null,
+        "context": {
+          "host_version": "7.82/linux-x86_64",
+          "project": "WORKSPACE/audio-output/tidal-signals/Tidal-Signals.rpp",
+          "dirty": false,
+          "tempo": 100.0,
+          "duration": 38.4,
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Deep Bass",
+              "guid": "{BF10FC86-AD46-2229-3538-D6EA4300DD91}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/01_deep_bass.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Soft Kick",
+              "guid": "{B2540619-8C7D-3D93-B9CD-3D3A84EA1841}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/02_soft_kick.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "name": "Hats & Percussion",
+              "guid": "{69D060B3-81BF-0ED5-E94B-270BC31A7FB1}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/03_hats_percussion.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "name": "Warm Chord Pad",
+              "guid": "{DE4E11CE-8A15-9F4E-E2E2-EC9DD6A475C5}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/04_warm_chord_pad.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "name": "Melodic Pluck",
+              "guid": "{57A41C15-B3BE-D630-5C04-3A2BD22D3C58}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/05_melodic_pluck.wav",
+                  "source_exists": true
+                }
+              ]
+            }
+          ],
+          "track_count": 5,
+          "media_item_count": 5
+        }
+      },
+      "validation_skipped": false,
+      "request_id": "dcc-mcp-cli-131-0",
+      "_meta": {
+        "dcc": {
+          "dcc_type": "reaper",
+          "instance_id": "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+          "instance_short": "97802b7b",
+          "display_id": "reaper@7.82-97802b7b"
+        }
+      },
+      "control_route": "gateway",
+      "gateway_stats_recorded": true
+    }
+  },
+  {
+    "command": [
+      "call",
+      "reaper_session__session_info",
+      "--dcc-type",
+      "reaper",
+      "--instance-id",
+      "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+      "--json",
+      "{}"
+    ],
+    "result": {
+      "slug": "reaper_session__session_info",
+      "output": {
+        "success": true,
+        "message": "REAPER session readiness",
+        "error": null,
+        "prompt": null,
+        "context": {
+          "adapter": "dcc-mcp-reaper",
+          "transport": "external",
+          "transport_env_var": "DCC_MCP_REAPER_TRANSPORT",
+          "target_reaper_version": "7.82",
+          "host_version": "7.82",
+          "host_available": true,
+          "transport_error": null,
+          "host_version_supported": true,
+          "python_version": "3.12.14",
+          "python_bitness_ok": true,
+          "headless_host": null,
+          "notes": [
+            "Host display mode is unknown; Linux REAPER supports headless operation with a custom libSwell (NOGDK=1).",
+            "The current CI suite is host-free; host-side behaviour requires separate validation against running REAPER."
+          ]
+        }
+      },
+      "validation_skipped": true,
+      "request_id": "dcc-mcp-cli-141-0",
+      "_meta": {
+        "dcc": {
+          "dcc_type": "reaper",
+          "instance_id": "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+          "instance_short": "97802b7b",
+          "display_id": "reaper@7.82-97802b7b"
+        }
+      },
+      "control_route": "gateway",
+      "gateway_stats_recorded": true
+    }
+  },
+  {
+    "command": [
+      "call",
+      "reaper_session__list_projects",
+      "--dcc-type",
+      "reaper",
+      "--instance-id",
+      "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+      "--json",
+      "{}"
+    ],
+    "result": {
+      "slug": "reaper_session__list_projects",
+      "output": {
+        "success": true,
+        "message": "Open REAPER project tabs",
+        "error": null,
+        "prompt": null,
+        "context": {
+          "host_available": true,
+          "transport": "external",
+          "project_count": 1,
+          "projects": [
+            {
+              "index": 0,
+              "path": "WORKSPACE/audio-output/tidal-signals/Tidal-Signals.rpp",
+              "name": "Tidal-Signals.rpp",
+              "active": true
+            }
+          ]
+        }
+      },
+      "validation_skipped": true,
+      "request_id": "dcc-mcp-cli-151-0",
+      "_meta": {
+        "dcc": {
+          "dcc_type": "reaper",
+          "instance_id": "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+          "instance_short": "97802b7b",
+          "display_id": "reaper@7.82-97802b7b"
+        }
+      },
+      "control_route": "gateway",
+      "gateway_stats_recorded": true
+    }
+  },
+  {
+    "command": [
+      "call",
+      "reaper_project__project_info",
+      "--dcc-type",
+      "reaper",
+      "--instance-id",
+      "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+      "--json",
+      "{}"
+    ],
+    "result": {
+      "slug": "reaper_project__project_info",
+      "output": {
+        "success": true,
+        "message": "Active REAPER project",
+        "error": null,
+        "prompt": null,
+        "context": {
+          "host_available": true,
+          "transport": "external",
+          "project": {
+            "path": "WORKSPACE/audio-output/tidal-signals/Tidal-Signals.rpp",
+            "name": "Tidal-Signals.rpp",
+            "dirty": false,
+            "length": 38.4,
+            "tempo": 100.0
+          }
+        }
+      },
+      "validation_skipped": true,
+      "request_id": "dcc-mcp-cli-161-0",
+      "_meta": {
+        "dcc": {
+          "dcc_type": "reaper",
+          "instance_id": "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+          "instance_short": "97802b7b",
+          "display_id": "reaper@7.82-97802b7b"
+        }
+      },
+      "control_route": "gateway",
+      "gateway_stats_recorded": true
+    }
+  },
+  {
+    "command": [
+      "call",
+      "reaper_tracks__list_tracks",
+      "--dcc-type",
+      "reaper",
+      "--instance-id",
+      "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+      "--json",
+      "{}"
+    ],
+    "result": {
+      "slug": "reaper_tracks__list_tracks",
+      "output": {
+        "success": true,
+        "message": "REAPER project tracks",
+        "error": null,
+        "prompt": null,
+        "context": {
+          "host_available": true,
+          "transport": "external",
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Deep Bass",
+              "guid": "{BF10FC86-AD46-2229-3538-D6EA4300DD91}",
+              "muted": false,
+              "soloed": false,
+              "fx_count": 0
+            },
+            {
+              "index": 1,
+              "name": "Soft Kick",
+              "guid": "{B2540619-8C7D-3D93-B9CD-3D3A84EA1841}",
+              "muted": false,
+              "soloed": false,
+              "fx_count": 0
+            },
+            {
+              "index": 2,
+              "name": "Hats & Percussion",
+              "guid": "{69D060B3-81BF-0ED5-E94B-270BC31A7FB1}",
+              "muted": false,
+              "soloed": false,
+              "fx_count": 0
+            },
+            {
+              "index": 3,
+              "name": "Warm Chord Pad",
+              "guid": "{DE4E11CE-8A15-9F4E-E2E2-EC9DD6A475C5}",
+              "muted": false,
+              "soloed": false,
+              "fx_count": 0
+            },
+            {
+              "index": 4,
+              "name": "Melodic Pluck",
+              "guid": "{57A41C15-B3BE-D630-5C04-3A2BD22D3C58}",
+              "muted": false,
+              "soloed": false,
+              "fx_count": 0
+            }
+          ]
+        }
+      },
+      "validation_skipped": false,
+      "request_id": "dcc-mcp-cli-171-0",
+      "_meta": {
+        "dcc": {
+          "dcc_type": "reaper",
+          "instance_id": "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+          "instance_short": "97802b7b",
+          "display_id": "reaper@7.82-97802b7b"
+        }
+      },
+      "control_route": "gateway",
+      "gateway_stats_recorded": true
+    }
+  },
+  {
+    "command": [
+      "call",
+      "reaper_transport__transport_state",
+      "--dcc-type",
+      "reaper",
+      "--instance-id",
+      "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+      "--json",
+      "{}"
+    ],
+    "result": {
+      "slug": "reaper_transport__transport_state",
+      "output": {
+        "success": true,
+        "message": "REAPER transport state",
+        "error": null,
+        "prompt": null,
+        "context": {
+          "host_available": true,
+          "transport": "external",
+          "transport_state": {
+            "play_state": 0,
+            "edit_cursor": 0.0,
+            "time_selection_start": 0.0,
+            "time_selection_end": 0.0
+          }
+        }
+      },
+      "validation_skipped": true,
+      "request_id": "dcc-mcp-cli-181-0",
+      "_meta": {
+        "dcc": {
+          "dcc_type": "reaper",
+          "instance_id": "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+          "instance_short": "97802b7b",
+          "display_id": "reaper@7.82-97802b7b"
+        }
+      },
+      "control_route": "gateway",
+      "gateway_stats_recorded": true
+    }
+  },
+  {
+    "command": [
+      "call",
+      "reaper_stem_session__audit_session",
+      "--dcc-type",
+      "reaper",
+      "--instance-id",
+      "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+      "--json",
+      "{}"
+    ],
+    "result": {
+      "slug": "reaper_stem_session__audit_session",
+      "output": {
+        "success": true,
+        "message": "Live REAPER session audited",
+        "error": null,
+        "prompt": null,
+        "context": {
+          "host_version": "7.82/linux-x86_64",
+          "project": "WORKSPACE/audio-output/tidal-signals/Tidal-Signals.rpp",
+          "dirty": false,
+          "tempo": 100.0,
+          "duration": 38.4,
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Deep Bass",
+              "guid": "{BF10FC86-AD46-2229-3538-D6EA4300DD91}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/01_deep_bass.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Soft Kick",
+              "guid": "{B2540619-8C7D-3D93-B9CD-3D3A84EA1841}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/02_soft_kick.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "name": "Hats & Percussion",
+              "guid": "{69D060B3-81BF-0ED5-E94B-270BC31A7FB1}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/03_hats_percussion.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "name": "Warm Chord Pad",
+              "guid": "{DE4E11CE-8A15-9F4E-E2E2-EC9DD6A475C5}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/04_warm_chord_pad.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "name": "Melodic Pluck",
+              "guid": "{57A41C15-B3BE-D630-5C04-3A2BD22D3C58}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/05_melodic_pluck.wav",
+                  "source_exists": true
+                }
+              ]
+            }
+          ],
+          "track_count": 5,
+          "media_item_count": 5
+        }
+      },
+      "validation_skipped": true,
+      "request_id": "dcc-mcp-cli-191-0",
+      "_meta": {
+        "dcc": {
+          "dcc_type": "reaper",
+          "instance_id": "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+          "instance_short": "97802b7b",
+          "display_id": "reaper@7.82-97802b7b"
+        }
+      },
+      "control_route": "gateway",
+      "gateway_stats_recorded": true
+    }
+  },
+  {
+    "command": [
+      "call",
+      "reaper_tracks__list_tracks",
+      "--dcc-type",
+      "reaper",
+      "--instance-id",
+      "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+      "--json",
+      "{\"limit\": 2}"
+    ],
+    "result": {
+      "slug": "reaper_tracks__list_tracks",
+      "output": {
+        "success": true,
+        "message": "REAPER project tracks",
+        "error": null,
+        "prompt": null,
+        "context": {
+          "host_available": true,
+          "transport": "external",
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Deep Bass",
+              "guid": "{BF10FC86-AD46-2229-3538-D6EA4300DD91}",
+              "muted": false,
+              "soloed": false,
+              "fx_count": 0
+            },
+            {
+              "index": 1,
+              "name": "Soft Kick",
+              "guid": "{B2540619-8C7D-3D93-B9CD-3D3A84EA1841}",
+              "muted": false,
+              "soloed": false,
+              "fx_count": 0
+            }
+          ]
+        }
+      },
+      "validation_skipped": false,
+      "request_id": "dcc-mcp-cli-201-0",
+      "_meta": {
+        "dcc": {
+          "dcc_type": "reaper",
+          "instance_id": "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+          "instance_short": "97802b7b",
+          "display_id": "reaper@7.82-97802b7b"
+        }
+      },
+      "control_route": "gateway",
+      "gateway_stats_recorded": true
+    }
+  },
+  {
+    "command": [
+      "call",
+      "reaper_stem_session__render_master",
+      "--dcc-type",
+      "reaper",
+      "--instance-id",
+      "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+      "--json",
+      "{\"output_path\": \"WORKSPACE/audio-output/tidal-signals/renders/Tidal-Signals-cli-service.wav\"}"
+    ],
+    "result": {
+      "slug": "reaper_stem_session__render_master",
+      "output": {
+        "success": true,
+        "message": "REAPER native offline master rendered",
+        "error": null,
+        "prompt": null,
+        "context": {
+          "output_path": "WORKSPACE/audio-output/tidal-signals/renders/Tidal-Signals-cli-service.wav",
+          "bytes": 11059890,
+          "sha256": "913249ebcf2b23869f060674c5bd38e7128a2a8856cfac169b636fdd1418fad1",
+          "sample_rate": 48000,
+          "channels": 2,
+          "sample_width_bytes": 3,
+          "frames": 1843200,
+          "duration": 38.4
+        }
+      },
+      "validation_skipped": false,
+      "request_id": "dcc-mcp-cli-211-0",
+      "_meta": {
+        "dcc": {
+          "dcc_type": "reaper",
+          "instance_id": "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+          "instance_short": "97802b7b",
+          "display_id": "reaper@7.82-97802b7b"
+        }
+      },
+      "control_route": "gateway",
+      "gateway_stats_recorded": true
+    }
+  },
+  {
+    "command": [
+      "call",
+      "reaper_stem_session__save_project",
+      "--dcc-type",
+      "reaper",
+      "--instance-id",
+      "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+      "--json",
+      "{\"project_path\": \"WORKSPACE/audio-output/tidal-signals/Tidal-Signals.rpp\"}"
+    ],
+    "result": {
+      "slug": "reaper_stem_session__save_project",
+      "output": {
+        "success": true,
+        "message": "Native RPP saved",
+        "error": null,
+        "prompt": null,
+        "context": {
+          "bytes": 8144,
+          "host_version": "7.82/linux-x86_64",
+          "project": "WORKSPACE/audio-output/tidal-signals/Tidal-Signals.rpp",
+          "dirty": false,
+          "tempo": 100.0,
+          "duration": 38.4,
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Deep Bass",
+              "guid": "{BF10FC86-AD46-2229-3538-D6EA4300DD91}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/01_deep_bass.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Soft Kick",
+              "guid": "{B2540619-8C7D-3D93-B9CD-3D3A84EA1841}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/02_soft_kick.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "name": "Hats & Percussion",
+              "guid": "{69D060B3-81BF-0ED5-E94B-270BC31A7FB1}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/03_hats_percussion.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "name": "Warm Chord Pad",
+              "guid": "{DE4E11CE-8A15-9F4E-E2E2-EC9DD6A475C5}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/04_warm_chord_pad.wav",
+                  "source_exists": true
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "name": "Melodic Pluck",
+              "guid": "{57A41C15-B3BE-D630-5C04-3A2BD22D3C58}",
+              "gain": 1.0,
+              "pan": 0.0,
+              "muted": false,
+              "fx_count": 0,
+              "items": [
+                {
+                  "position": 0.0,
+                  "length": 38.4,
+                  "source": "WORKSPACE/audio-output/tidal-signals/media/05_melodic_pluck.wav",
+                  "source_exists": true
+                }
+              ]
+            }
+          ],
+          "track_count": 5,
+          "media_item_count": 5
+        }
+      },
+      "validation_skipped": false,
+      "request_id": "dcc-mcp-cli-239-0",
+      "_meta": {
+        "dcc": {
+          "dcc_type": "reaper",
+          "instance_id": "97802b7b-80f2-44ef-b41e-54fc2496eef5",
+          "instance_short": "97802b7b",
+          "display_id": "reaper@7.82-97802b7b"
+        }
+      },
+      "control_route": "gateway",
+      "gateway_stats_recorded": true
+    }
+  }
+]

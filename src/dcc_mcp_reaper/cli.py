@@ -67,6 +67,7 @@ def _serve(args, parser):
         signal.signal(sig, lambda *_: stopped.set())
     try:
         server.start()
+        server.register_builtin_actions()
         print(
             json.dumps(
                 {

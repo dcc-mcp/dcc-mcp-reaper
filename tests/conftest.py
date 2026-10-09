@@ -1,6 +1,6 @@
 """Hermetic test fixtures.
 
-REAPER has no headless mode, so the default suite must never touch a host.
+The default suite is deliberately host-free, regardless of GUI/headless support.
 ``DCC_MCP_DISABLE_DEFAULT_SKILL_PATHS`` keeps core's implicit skill discovery
 from pulling in a developer's local or marketplace skills, while the adapter's
 own bundled skills stay active.

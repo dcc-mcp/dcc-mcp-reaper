@@ -41,7 +41,10 @@ recognises) drives REAPER from a separate Python process. From PyPI metadata:
   the bare name.
 
 Costs of the external path: it requires REAPER's Web Browser Interface to be
-enabled, a one-time `configure_reaper` step, and a REAPER restart. Every call
+enabled, a matching Python shared library for the server ReaScript, a one-time
+`configure_reaper` step, and a REAPER restart. `configure_reaper()` enables
+ReaScript Python and registers `activate_reapy_server.py`; only the adapter
+process runs outside REAPER. Every call
 becomes a network round trip (the upstream project quotes roughly 30–60 calls
 per second), and the wrapper exposes a narrower surface than the raw `RPR_*`
 API.
@@ -67,8 +70,9 @@ Reasons, in order of weight:
    `get_action_context` — are all acceptable here: bitness is checked at runtime
    and reported by `doctor`; this adapter ships no UI or drawing tools; and no
    skill depends on action-binding context.
-4. **The external path stays available as an opt-in**, because zero-install
-   operation matters for users who cannot add a Python to their REAPER.
+4. **The external path stays available as an opt-in** for users who want the
+   adapter to run in a separate process. The reapy bridge still requires
+   embedded Python inside REAPER.
 
 The selection is data-driven from an environment variable rather than hard-coded
 so both paths are testable without a live host.
@@ -84,7 +88,9 @@ so both paths are testable without a live host.
   importable top-level package is **`reapy_boost`**; the code imports that name,
   not `reapy`. The bare `reapy` name on PyPI is an empty placeholder, so it is
   not used as a fallback unless it exposes `get_reaper_version`.
-- REAPER has **no headless mode**, so neither transport can be exercised against
-  a real host in CI. Host behaviour is verified on a real machine and recorded
-  under `docs/validation/`; the repository marks those items as unverified in CI
-  rather than implying they passed.
+- Current CI does not launch a real REAPER host. Linux REAPER supports
+  headless operation with a custom `libSwell.so` built using `NOGDK=1`, as
+  documented in the official Linux tarball's `readme-linux.txt`; this still
+  requires a running host and a configured transport. Host validation is
+  recorded under `docs/validation/`; a passing host-free suite alone is not
+  evidence that either transport works against REAPER.

@@ -14,8 +14,9 @@ use decides what the adapter can do:
     The adapter runs in its own process and drives REAPER through ``reapy_boost``
     (the maintained fork shipped by the ``external`` extra), which needs REAPER's
     Web Browser Interface enabled and a one-time ``configure_reaper`` plus
-    restart. Zero Python installation inside REAPER, at the cost of a narrower
-    API surface and a network round trip per call. ``reapy_boost`` requires
+    restart. Its server ReaScript still requires a matching Python shared
+    library inside REAPER. The external adapter has a narrower API surface and
+    a network round trip per call. ``reapy_boost`` requires
     Python >= 3.7, which matches this package's floor.
 
 The choice is data-driven from ``DCC_MCP_REAPER_TRANSPORT`` so tests and CI can

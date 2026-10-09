@@ -1,7 +1,11 @@
 """List every track in the active project with name, mute/solo state and FX count."""
 
-import json
 import sys
+from typing import Optional
+
+from dcc_mcp_core.skill import skill_entry
+
+from dcc_mcp_reaper.skill_support import inspection_result, print_cli_result
 
 
 def _read_in_process():
@@ -18,7 +22,7 @@ def _read_in_process():
             {
                 "index": index,
                 "name": name or None,
-                "guid": module.RPR_GetTrackGUID(track),
+                "guid": module.RPR_GetSetMediaTrackInfo_String(track, "GUID", "", False)[3],
                 "muted": bool(module.RPR_GetMediaTrackInfo_Value(track, "B_MUTE")),
                 "soloed": bool(module.RPR_GetMediaTrackInfo_Value(track, "I_SOLO")),
                 "fx_count": module.RPR_TrackFX_GetCount(track),
@@ -27,49 +31,54 @@ def _read_in_process():
     return tracks
 
 
-def main():
-    import argparse
-
+@skill_entry
+def main(limit: Optional[int] = None) -> dict:
     from dcc_mcp_reaper.runtime import environment_report
-    from dcc_mcp_reaper.transport import IN_PROCESS, resolve_transport
+    from dcc_mcp_reaper.transport import IN_PROCESS, external_client, resolve_transport
 
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--limit", type=int, default=None)
-    args = parser.parse_args()
+    if limit is not None and (isinstance(limit, bool) or not isinstance(limit, int) or limit < 1):
+        raise ValueError("limit must be a positive integer")
 
     report = environment_report()
     if not report["host_available"]:
-        print(json.dumps({"host_available": False, "tracks": []}, indent=2))
-        return 0
+        result = {"host_available": False, "tracks": []}
+        if report["transport_error"]:
+            result["transport_error"] = report["transport_error"]
+        return inspection_result("REAPER is not reachable", result)
 
     transport = resolve_transport()
     if transport == IN_PROCESS:
         tracks = _read_in_process()
     else:
-        import reapy
+        reapy = external_client()
 
         tracks = [
             {
                 "index": index,
                 "name": track.name,
-                "guid": track.GUID,
+                "guid": reapy.reascript_api.GetSetMediaTrackInfo_String(track.id, "GUID", "", False)[3],
                 "muted": track.is_muted,
-                "soloed": bool(track.solo),
+                "soloed": bool(track.is_solo),
                 "fx_count": track.n_fxs,
             }
             for index, track in enumerate(reapy.Project().tracks)
         ]
 
-    if args.limit is not None:
-        tracks = tracks[: args.limit]
-    print(
-        json.dumps(
-            {"host_available": True, "transport": transport, "tracks": tracks},
-            indent=2,
-        )
+    if limit is not None:
+        tracks = tracks[:limit]
+    return inspection_result(
+        "REAPER project tracks", {"host_available": True, "transport": transport, "tracks": tracks}
     )
-    return 0
+
+
+def cli_main():
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--limit", type=int, default=None)
+    args = parser.parse_args()
+    return print_cli_result(main(limit=args.limit))
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(cli_main())

@@ -1,20 +1,24 @@
 tools:
   - name: session_info
     description: Report the REAPER host version, active transport, and adapter identity.
+    read_only: true
+    output_schema: {type: object}
     execution: sync
     affinity: any
-    parameters:
+    input_schema:
       type: object
       properties: {}
       additionalProperties: false
-    script: scripts/session_info.py
+    source_file: scripts/session_info.py
 
   - name: list_projects
     description: List the project tabs currently open in this REAPER instance.
+    read_only: true
+    output_schema: {type: object}
     execution: sync
     affinity: any
-    parameters:
+    input_schema:
       type: object
       properties: {}
       additionalProperties: false
-    script: scripts/list_projects.py
+    source_file: scripts/list_projects.py

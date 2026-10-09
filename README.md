@@ -10,8 +10,8 @@ the general-purpose DAW gap alongside `dcc-mcp-wwise` (game audio middleware),
 ## Status
 
 **Alpha.** The adapter ships read-only inspection tools. Host-side behaviour is
-verified on a real REAPER installation and is **not** covered by CI, because
-REAPER has no headless mode — see [Unverified in CI](#unverified-in-ci).
+verified on a real REAPER installation and is **not** covered by the current
+host-free CI suite — see [Unverified in CI](#unverified-in-ci).
 
 | | |
 |---|---|
@@ -57,7 +57,8 @@ dcc-mcp-reaper serve --pid <reaper-pid>
 The adapter runs in its own process and drives REAPER over REAPER's Web Browser
 Interface through `reapy_boost` (installed by the `external` extra).
 
-- No Python installation needed inside REAPER.
+- Requires a matching Python shared library inside REAPER for reapy's server
+  ReaScript, even though the adapter itself runs outside the host.
 - Needs the Web Browser Interface enabled, plus a one-time `configure_reaper`
   and a REAPER restart.
 - Narrower API surface, and each call is a network round trip — avoid polling in
@@ -96,8 +97,14 @@ dcc-mcp-cli call <tool-slug> --json '{}'
 ## Unverified in CI
 
 CI runs contract checks, lint, packaging and a host-free pytest suite. It does
-**not** run REAPER, because REAPER has no headless mode and cannot be driven on
-a runner.
+**not** currently launch REAPER.
+
+The official REAPER Linux tarball documents headless operation in
+`readme-linux.txt`: build a custom `libSwell.so` from WDL with `NOGDK=1` and use
+it in the REAPER installation. This is a Linux build option, not a universal
+command-line headless flag. A real running REAPER host and a configured
+transport are still required. The adapter does not detect the host
+display mode, so `doctor` reports `headless_host: null` (unknown).
 
 The following are therefore **not verified by CI** and rely on manual host
 validation:

@@ -19,3 +19,18 @@ def test_external_rejects_a_host_pid():
 def test_external_transport_constructs():
     server = ReaperServer(port=0, dcc_pid=None, transport=EXTERNAL)
     assert server.transport == EXTERNAL
+
+
+def test_in_process_preserves_supplied_host_dispatcher():
+    dispatcher = object()
+    server = ReaperServer(
+        port=0,
+        dcc_pid=1234,
+        transport=IN_PROCESS,
+        dispatcher=dispatcher,
+        enable_file_logging=False,
+        enable_job_persistence=False,
+    )
+    assert server.transport == IN_PROCESS
+    assert server._execution_bridge.dispatcher is dispatcher
+    assert server._dcc_dispatcher is dispatcher

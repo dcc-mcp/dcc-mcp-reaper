@@ -1,10 +1,12 @@
 tools:
   - name: transport_state
     description: Report play state, edit cursor position, and time selection.
+    read_only: true
+    output_schema: {type: object}
     execution: sync
     affinity: any
-    parameters:
+    input_schema:
       type: object
       properties: {}
       additionalProperties: false
-    script: scripts/transport_state.py
+    source_file: scripts/transport_state.py

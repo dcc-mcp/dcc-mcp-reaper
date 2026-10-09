@@ -2,8 +2,9 @@
 
 Every function here is transport-aware and side-effect free with respect to the
 host: they report what the adapter can see, never mutate the REAPER project.
-REAPER has no headless mode, so on a machine without REAPER these return
-``available: False`` and CI never calls them against a real host.
+When no running REAPER is reachable, readiness reports ``host_available: False``.
+Host display mode is not detected; Linux can run headlessly with a custom
+libSwell build.
 """
 
 import os
@@ -77,7 +78,8 @@ def environment_report(transport=None, environ=None):
     A transport that cannot be honoured is reported as ``transport_error``
     rather than raised: the doctor's job is to explain a broken install, so it
     must stay runnable on one. An unreachable host is not an error, so it keeps
-    the ordinary ``host_available: false`` path.
+    the ordinary ``host_available: false`` path. ``headless_host`` is ``None``
+    (unknown) because neither transport currently detects the host display mode.
     """
     chosen = resolve_transport(transport, environ=environ)
     try:
@@ -97,7 +99,7 @@ def environment_report(transport=None, environ=None):
         "host_version_supported": is_supported(version) if version else None,
         "python_version": platform.python_version(),
         "python_bitness_ok": bitness_matches_host(chosen),
-        "headless_host": False,
+        "headless_host": None,
         "notes": [],
     }
     if transport_error:
@@ -109,7 +111,10 @@ def environment_report(transport=None, environ=None):
             "Interpreter bitness does not match REAPER; ReaScript Python needs a matching 64-bit interpreter."
         )
     report["notes"].append(
-        "REAPER has no headless mode; host-side behaviour is verified on a real host and is not covered by CI."
+        "Host display mode is unknown; Linux REAPER supports headless operation with a custom libSwell (NOGDK=1)."
+    )
+    report["notes"].append(
+        "The current CI suite is host-free; host-side behaviour requires separate validation against running REAPER."
     )
     return report
 

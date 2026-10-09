@@ -6,6 +6,7 @@ metadata:
   dcc-mcp:
     dcc: reaper
     layer: host
+    tools: tools.yaml
     version: "0.1.0"
 ---
 
@@ -24,6 +25,7 @@ index or GUID.
 
 ## Constraints
 
-- REAPER has **no headless mode**; a live GUI session is required.
+- A real REAPER host must be running and reachable over the selected transport.
+  Linux can run headlessly with a custom `libSwell` built using `NOGDK=1`.
 - Track indices are positional and shift when tracks are added or removed, so
   prefer the GUID when a later call has to address the same track.

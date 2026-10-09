@@ -6,6 +6,7 @@ metadata:
   dcc-mcp:
     dcc: reaper
     layer: host
+    tools: tools.yaml
     version: "0.1.0"
 ---
 
@@ -26,8 +27,9 @@ version decides which ReaScript API functions exist.
 
 ## Constraints
 
-- REAPER has **no headless mode**. Every host-facing call in this skill needs a
-  running REAPER with a GUI session; on a machine with no REAPER the tools
-  report `host_available: false` rather than failing the MCP call.
+- Every host-facing call in this skill needs a running, reachable REAPER; when
+  the host is absent the tools report `host_available: false` rather than
+  failing the MCP call. Linux can run headlessly with a custom `libSwell` built
+  using `NOGDK=1`.
 - On the `in_process` transport the interpreter bitness must match REAPER's
   (64-bit REAPER requires 64-bit Python).
