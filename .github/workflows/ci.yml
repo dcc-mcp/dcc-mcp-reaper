@@ -6,6 +6,7 @@ name: CI
 
 on:
   workflow_dispatch:
+  workflow_call:
   push:
     branches: [main, "release-please--branches--**"]
   pull_request:
