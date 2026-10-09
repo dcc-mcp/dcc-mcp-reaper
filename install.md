@@ -52,7 +52,9 @@ REAPER process.
 
 ## Transport 2: external (Web Browser Interface)
 
-Use this when you cannot add a Python to REAPER.
+Use this when you want the adapter to run in a separate process. The
+`reapy_boost` bridge still needs Python enabled inside REAPER, with a shared
+library whose bitness matches the host, to run its server ReaScript.
 
 ### 1. Enable REAPER's Web Browser Interface
 
@@ -70,9 +72,11 @@ The `external` extra installs `reapy-boost`, whose importable top-level package
 is **`reapy_boost`**. (`reapy` is a separate, unmaintained distribution on PyPI
 that this adapter does not use.)
 
-`configure_reaper()` writes a small bootstrap script into REAPER's resource
-directory. **Restart REAPER** afterwards — the change does not take effect until
-you do.
+`configure_reaper()` enables ReaScript Python, configures its shared-library
+path, adds the Web Browser Interface, and registers the package's
+`activate_reapy_server.py` in REAPER's Actions list. It edits REAPER's
+configuration files; it does not remove the embedded-Python requirement.
+**Restart REAPER** afterwards so those changes take effect.
 
 ### 3. Serve
 
@@ -99,5 +103,6 @@ lifetime, and REAPER may restart independently.
 pip uninstall dcc-mcp-reaper
 ```
 
-On the external transport, remove the bootstrap script `configure_reaper()`
-wrote from REAPER's resource directory and restart REAPER.
+On the external transport, remove the registered `activate_reapy_server.py`
+action and the Web Browser Interface added for reapy, then restart REAPER.
+Keep any Python configuration that other ReaScripts still use.

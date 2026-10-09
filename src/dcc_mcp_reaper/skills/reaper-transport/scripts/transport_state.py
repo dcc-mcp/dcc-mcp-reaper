@@ -1,10 +1,12 @@
 """Report REAPER play state, edit cursor position, and time selection."""
 
-import json
 import sys
 
+from dcc_mcp_core.skill import skill_entry
+
 from dcc_mcp_reaper.runtime import environment_report
-from dcc_mcp_reaper.transport import IN_PROCESS, in_process_module, resolve_transport
+from dcc_mcp_reaper.skill_support import inspection_result, print_cli_result
+from dcc_mcp_reaper.transport import IN_PROCESS, external_client, in_process_module, resolve_transport
 
 
 def _read_in_process():
@@ -19,32 +21,35 @@ def _read_in_process():
     }
 
 
-def main():
+@skill_entry
+def main() -> dict:
     report = environment_report()
     if not report["host_available"]:
-        print(json.dumps({"host_available": False, "transport_state": None}, indent=2))
-        return 0
+        result = {"host_available": False, "transport_state": None}
+        if report["transport_error"]:
+            result["transport_error"] = report["transport_error"]
+        return inspection_result("REAPER is not reachable", result)
     transport = resolve_transport()
     if transport == IN_PROCESS:
         state = _read_in_process()
     else:
-        import reapy
+        reapy = external_client()
 
         proj = reapy.Project()
         state = {
-            "play_state": int(reapy.Project().is_playing),
+            "play_state": int(proj.is_playing),
             "edit_cursor": proj.cursor_position,
             "time_selection_start": proj.time_selection.start,
             "time_selection_end": proj.time_selection.end,
         }
-    print(
-        json.dumps(
-            {"host_available": True, "transport": transport, "transport_state": state},
-            indent=2,
-        )
+    return inspection_result(
+        "REAPER transport state", {"host_available": True, "transport": transport, "transport_state": state}
     )
-    return 0
+
+
+def cli_main():
+    return print_cli_result(main())
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(cli_main())

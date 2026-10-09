@@ -25,8 +25,13 @@ def test_report_names_the_transport():
     assert environment_report(IN_PROCESS, environ={})["transport"] == IN_PROCESS
 
 
-def test_reaper_is_reported_as_not_headless():
-    assert environment_report(IN_PROCESS, environ={})["headless_host"] is False
+@pytest.mark.parametrize("transport", [IN_PROCESS, EXTERNAL])
+@pytest.mark.parametrize("version", [None, "7.82"])
+def test_host_display_mode_is_unknown_even_when_reachable(monkeypatch, transport, version):
+    monkeypatch.setattr("dcc_mcp_reaper.runtime.detect_host_version", lambda chosen: version)
+    report = environment_report(transport, environ={})
+    assert report["host_available"] is (version is not None)
+    assert report["headless_host"] is None
 
 
 def test_absent_host_is_reported_not_raised():
@@ -42,7 +47,12 @@ def test_absent_host_produces_a_note():
 
 def test_report_always_states_ci_does_not_cover_the_host():
     notes = environment_report(EXTERNAL, environ={})["notes"]
-    assert any("no headless mode" in note for note in notes)
+    assert any("CI suite is host-free" in note for note in notes)
+
+
+def test_report_explains_headless_support_without_claiming_detection():
+    notes = environment_report(IN_PROCESS, environ={})["notes"]
+    assert any("Host display mode is unknown" in note and "NOGDK=1" in note for note in notes)
 
 
 class TestTransportMisconfiguration:

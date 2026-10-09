@@ -29,9 +29,9 @@ def test_report_names_the_transport_it_describes():
     assert doctor.build_report(EXTERNAL, environ={})["environment"]["transport"] == EXTERNAL
 
 
-def test_report_states_reaper_is_not_headless():
+def test_report_preserves_unknown_host_display_mode():
     report = doctor.build_report(IN_PROCESS, environ={})
-    assert report["environment"]["headless_host"] is False
+    assert report["environment"]["headless_host"] is None
 
 
 def test_report_declares_sop_status():

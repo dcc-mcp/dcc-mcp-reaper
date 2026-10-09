@@ -11,7 +11,7 @@ from .transport import IN_PROCESS, resolve_transport
 class ReaperServer(DccServerBase):
     """MCP service for one REAPER instance.
 
-    REAPER has no headless mode, so this server runs in one of two shapes:
+    This server connects to a running REAPER host in one of two shapes:
 
     ``in_process``
         Started from a ReaScript inside REAPER. The host PID is the REAPER
@@ -23,7 +23,7 @@ class ReaperServer(DccServerBase):
         process owns its own lifetime and REAPER may restart independently.
     """
 
-    def __init__(self, port=None, dcc_pid=None, dcc_version=None, transport=None, **kwargs):
+    def __init__(self, port=None, dcc_pid=None, dcc_version=None, transport=None, dispatcher=None, **kwargs):
         chosen = resolve_transport(transport)
         if chosen == IN_PROCESS and dcc_pid is None:
             raise ValueError("in_process transport requires the REAPER host PID")
@@ -38,7 +38,7 @@ class ReaperServer(DccServerBase):
             instance_type="gui" if dcc_pid is not None else "standalone",
             dcc_pid=dcc_pid,
             dcc_version=dcc_version,
-            execution_bridge=HostExecutionBridge(dispatcher=None),
+            execution_bridge=HostExecutionBridge(dispatcher=dispatcher),
             **kwargs,
         )
         super().__init__(options=options)

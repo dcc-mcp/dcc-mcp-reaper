@@ -6,6 +6,7 @@ metadata:
   dcc-mcp:
     dcc: reaper
     layer: host
+    tools: tools.yaml
     version: "0.1.0"
 ---
 
@@ -24,8 +25,9 @@ scheduling edits or a render.
 
 ## Constraints
 
-- REAPER has **no headless mode**; playback state only exists in a live GUI
-  session, so this tool reports `host_available: false` rather than a
-  fabricated position when REAPER is not running.
+- Playback state requires a running REAPER host; this tool reports
+  `host_available: false` rather than a fabricated position when REAPER is not
+  reachable. Linux can run headlessly with a custom `libSwell` built using
+  `NOGDK=1`.
 - On the `external` transport each read is a network round trip through the Web
   Browser Interface, so do not poll this tool in a tight loop.

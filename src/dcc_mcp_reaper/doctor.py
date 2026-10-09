@@ -97,7 +97,7 @@ def _next_steps(env):
             {
                 "id": "start-reaper",
                 "description": "Start REAPER and enable the selected transport",
-                "why": "REAPER has no headless mode; the host must be running to be driven.",
+                "why": "The host must be running and reachable over the selected transport.",
                 "command": ["dcc-mcp-reaper", "doctor"],
             }
         )

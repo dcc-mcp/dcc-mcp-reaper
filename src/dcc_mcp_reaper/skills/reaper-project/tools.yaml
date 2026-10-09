@@ -1,10 +1,12 @@
 tools:
   - name: project_info
     description: Report the path, dirty state, length, and tempo of the active project.
+    read_only: true
+    output_schema: {type: object}
     execution: sync
     affinity: any
-    parameters:
+    input_schema:
       type: object
       properties: {}
       additionalProperties: false
-    script: scripts/project_info.py
+    source_file: scripts/project_info.py

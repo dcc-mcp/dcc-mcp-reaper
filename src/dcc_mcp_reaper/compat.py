@@ -4,8 +4,8 @@ REAPER exposes its own version through the ReaScript API function
 ``GetAppVersion()``, which returns a display string such as ``7.82/x64``. The
 matrix below records which release lines this adapter is written against.
 
-REAPER has no headless mode, so a version row here is a *declared* support
-statement, not CI-verified evidence. See ``docs/validation/README.md``.
+The current CI suite is host-free, so a version row here is a *declared*
+support statement, not CI-verified evidence. See ``docs/validation/README.md``.
 """
 
 SUPPORTED_MAJOR_LINES = ("6", "7")

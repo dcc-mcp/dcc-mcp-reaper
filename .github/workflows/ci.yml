@@ -1,8 +1,8 @@
 name: CI
 
-# REAPER has no headless mode, so no job here drives a real host. The suite is
-# contract, lint, packaging and host-free pytest; host behaviour is validated
-# on a real machine and recorded under docs/validation/.
+# This workflow does not launch REAPER. The suite is contract, lint, packaging
+# and host-free pytest; real-host validation (including Linux headless builds)
+# is recorded separately under docs/validation/.
 
 on:
   workflow_dispatch:

@@ -29,9 +29,11 @@ Use the `dev` extra for the lint, build and distribution gates.
 
 ## The one thing to know before editing
 
-**REAPER has no headless mode.** CI therefore cannot exercise a real host: it
-runs contract checks, lint, packaging and a host-free pytest suite. Tests that
-need a live REAPER are marked `reaper` and are skipped by default.
+CI currently runs contract checks, lint, packaging and a host-free pytest suite;
+it does not launch REAPER. Linux REAPER can run headlessly with a custom
+`libSwell` built using `NOGDK=1`, as documented in the official Linux tarball
+readme. That still requires a real running host and a configured transport.
+Tests that need a live REAPER are marked `reaper` and are skipped by default.
 
 Do not write a test that silently passes without a host. Assert on
 `host_available: false` explicitly, or mark the test `reaper` so its skip is
@@ -62,8 +64,9 @@ Two transports, selected by `DCC_MCP_REAPER_TRANSPORT`:
   directly. **Requires `--pid`.** Full API surface; needs a matching-bitness
   Python; no UI/graphics and no `get_action_context`.
 - `external` — standalone process driving REAPER through `reapy_boost` over the
-  Web Browser Interface. **Must not receive `--pid`.** No Python inside REAPER;
-  narrower API surface and a network hop per call. The `external` extra installs
+  Web Browser Interface. **Must not receive `--pid`.** The adapter is external,
+  but reapy's server ReaScript still needs Python enabled inside REAPER.
+  Narrower API surface and a network hop per call. The `external` extra installs
   `reapy-boost`, whose importable top-level package is `reapy_boost` — not
   `reapy`, which is a different (unmaintained) distribution.
 
