@@ -1,0 +1,10 @@
+tools:
+  - name: transport_state
+    description: Report play state, edit cursor position, and time selection.
+    execution: sync
+    affinity: any
+    parameters:
+      type: object
+      properties: {}
+      additionalProperties: false
+    script: scripts/transport_state.py

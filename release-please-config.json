@@ -1,0 +1,20 @@
+{
+  "release-type": "python",
+  "include-v-in-tag": true,
+  "packages": {
+    ".": {
+      "package-name": "dcc-mcp-reaper",
+      "include-component-in-tag": false,
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true,
+      "extra-files": [
+        "src/dcc_mcp_reaper/__init__.py",
+        "src/dcc_mcp_reaper/__version__.py",
+        "src/dcc_mcp_reaper/skills/reaper-session/SKILL.md",
+        "src/dcc_mcp_reaper/skills/reaper-project/SKILL.md",
+        "src/dcc_mcp_reaper/skills/reaper-transport/SKILL.md",
+        "src/dcc_mcp_reaper/skills/reaper-tracks/SKILL.md"
+      ]
+    }
+  }
+}

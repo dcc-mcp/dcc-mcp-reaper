@@ -1,0 +1,14 @@
+tools:
+  - name: list_tracks
+    description: List every track in the active project with name, mute/solo state and FX count.
+    execution: sync
+    affinity: any
+    parameters:
+      type: object
+      properties:
+        limit:
+          type: integer
+          description: Maximum number of tracks to return. Defaults to all tracks.
+          minimum: 1
+      additionalProperties: false
+    script: scripts/list_tracks.py
