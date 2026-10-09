@@ -38,6 +38,7 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: write
+      id-token: write
     env:
       RELEASE_TAG: ${{ needs.version.outputs.tag }}
       RELEASE_SHA: ${{ needs.version.outputs.sha }}
@@ -58,4 +59,7 @@ jobs:
       - run: python -m pip install build twine
       - run: python -m build
       - run: python -m twine check dist/*
+      - name: Publish to PyPI
+        if: ${{ vars.PYPI_PUBLISH_ENABLED == 'true' }}
+        uses: pypa/gh-action-pypi-publish@a892a5a61159132606e93a2fa6f4358831b04d26 # v1.14.2
       - run: gh release upload "$RELEASE_TAG" dist/*
