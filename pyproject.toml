@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "dcc-mcp-reaper"
-version = "0.1.0" # x-release-please-version
+version = "0.1.1" # x-release-please-version
 description = "REAPER DAW session, project, transport and track inspection for DCC-MCP agents"
 readme = "README.md"
 requires-python = ">=3.7"
